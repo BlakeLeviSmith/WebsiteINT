@@ -4,10 +4,401 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modera AI</title>
+    <meta name="description" content="Modera AI — our site will be up soon." />
+    <style>
+      :root {
+        --bg: #070707;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel2: rgba(0, 0, 0, 0.35);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.68);
+        --line: rgba(255, 255, 255, 0.12);
+
+        /* Orange accents (luxury, not neon) */
+        --accent: #ff7a18;
+        --accent2: #ff9a3c;
+        --accentGlow: rgba(255, 122, 24, 0.22);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 700px at 20% 15%,
+            rgba(255, 122, 24, 0.18),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 600px at 85% 30%,
+            rgba(255, 154, 60, 0.12),
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 700px at 60% 90%,
+            rgba(255, 122, 24, 0.09),
+            transparent 60%
+          ),
+          linear-gradient(180deg, #050505 0%, #0b0b0b 55%, #050505 100%);
+        overflow: hidden;
+      }
+
+      /* Subtle animated grain + glow */
+      .noise {
+        pointer-events: none;
+        position: fixed;
+        inset: 0;
+        opacity: 0.08;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+        animation: drift 10s linear infinite;
+      }
+      @keyframes drift {
+        from {
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          transform: translate3d(-30px, 20px, 0);
+        }
+      }
+
+      .wrap {
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+      }
+
+      .card {
+        width: min(980px, 100%);
+        border: 1px solid var(--line);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.03)
+        );
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-radius: 22px;
+        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.65);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: -2px;
+        background: radial-gradient(
+            600px 220px at 20% 0%,
+            rgba(255, 122, 24, 0.35),
+            transparent 60%
+          ),
+          radial-gradient(
+            520px 220px at 85% 20%,
+            rgba(255, 154, 60, 0.18),
+            transparent 55%
+          );
+        filter: blur(24px);
+        opacity: 0.55;
+        pointer-events: none;
+      }
+
+      .content {
+        position: relative;
+        padding: clamp(28px, 4vw, 54px);
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: clamp(18px, 3vw, 36px);
+        align-items: center;
+      }
+
+      @media (max-width: 860px) {
+        .content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: radial-gradient(
+            18px 18px at 30% 30%,
+            rgba(255, 255, 255, 0.25),
+            transparent 60%
+          ),
+          linear-gradient(135deg, rgba(255, 122, 24, 0.95), #b34100);
+        box-shadow: 0 0 0 6px rgba(255, 122, 24, 0.08),
+          0 18px 40px rgba(0, 0, 0, 0.5);
+        position: relative;
+      }
+      .mark::after {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.12),
+          rgba(0, 0, 0, 0.32)
+        );
+      }
+
+      .brand {
+        font-size: 18px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      h1 {
+        margin: 0 0 12px 0;
+        font-size: clamp(36px, 4.2vw, 54px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      .accent {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .subtitle {
+        margin: 0 0 22px 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.65;
+        max-width: 54ch;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .pill {
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.22);
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+      .pill strong {
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 600;
+      }
+
+      .side {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.25),
+          rgba(0, 0, 0, 0.45)
+        );
+        border-radius: 18px;
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .side::before {
+        content: "";
+        position: absolute;
+        inset: -40px -60px auto auto;
+        width: 240px;
+        height: 240px;
+        background: radial-gradient(
+          closest-side,
+          rgba(255, 122, 24, 0.22),
+          transparent 70%
+        );
+        filter: blur(10px);
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.25);
+        margin-bottom: 14px;
+        position: relative;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 6px rgba(255, 122, 24, 0.12);
+      }
+      .status span {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .big {
+        margin: 0 0 10px 0;
+        font-size: 20px;
+        letter-spacing: -0.01em;
+      }
+
+      .small {
+        margin: 0 0 16px 0;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+        font-size: 14px;
+      }
+
+      .cta {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+
+      .btn {
+        appearance: none;
+        border: 0;
+        cursor: pointer;
+        padding: 12px 14px;
+        border-radius: 14px;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+        transition: transform 0.12s ease, box-shadow 0.12s ease,
+          background 0.12s ease;
+      }
+      .btn-primary {
+        color: #0b0b0b;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        box-shadow: 0 10px 30px var(--accentGlow);
+      }
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 40px rgba(255, 122, 24, 0.26);
+      }
+      .btn-ghost {
+        color: rgba(255, 255, 255, 0.88);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .btn-ghost:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        padding: 18px clamp(28px, 4vw, 54px);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 12px;
+        position: relative;
+      }
+
+      a {
+        color: rgba(255, 255, 255, 0.72);
+        text-decoration: none;
+      }
+      a:hover {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    </style>
   </head>
+
   <body>
-    <div>
-      <p>Welcome to Modera AI</p>
-    </div>
+    <div class="noise" aria-hidden="true"></div>
+
+    <main class="wrap">
+      <section class="card">
+        <div class="content">
+          <div>
+            <div class="brand-row">
+              <div class="mark" aria-hidden="true"></div>
+              <div class="brand">Modera AI</div>
+            </div>
+
+            <h1>
+              The next chapter of <span class="accent">intelligent</span> design.
+            </h1>
+
+            <p class="subtitle">
+              Our website is being polished and will be live soon. We’re
+              building a modern, luxury experience — fast, precise, and
+              uncompromising.
+            </p>
+
+            <div class="pill-row" aria-label="Highlights">
+              <div class="pill"><strong>Modern</strong> interface</div>
+              <div class="pill"><strong>Luxury</strong> aesthetic</div>
+              <div class="pill"><strong>AI-first</strong> workflows</div>
+            </div>
+          </div>
+
+          <aside class="side">
+            <div class="status">
+              <div class="dot" aria-hidden="true"></div>
+              <span>Launching soon</span>
+            </div>
+
+            <p class="big">We’ll be up shortly.</p>
+            <p class="small">
+              Thanks for stopping by. If you’d like updates, add an email button
+              later (or link to your social).
+            </p>
+
+            <div class="cta">
+              <!-- Replace # with your social / waitlist / contact link -->
+              <a class="btn btn-primary" href="#" onclick="return false;"
+                >Notify me</a
+              >
+              <a class="btn btn-ghost" href="#" onclick="return false;"
+                >Contact</a
+              >
+            </div>
+          </aside>
+        </div>
+
+        <div class="footer">
+          <div>© <span id="yr"></span> Modera AI. All rights reserved.</div>
+          <div>
+            <a href="#" onclick="return false;">Privacy</a> ·
+            <a href="#" onclick="return false;">Terms</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.getElementById("yr").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
