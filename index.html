@@ -332,6 +332,30 @@
         color: rgba(255, 255, 255, 0.9);
       }
     </style>
+        <!-- Brevo form assets -->
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    <style>
+      @font-face {
+        font-display: block;
+        font-family: Roboto;
+        src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),
+            url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
+      }
+      @font-face {
+        font-display: fallback;
+        font-family: Roboto;
+        font-weight: 600;
+        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),
+            url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
+      }
+      @font-face {
+        font-display: fallback;
+        font-family: Roboto;
+        font-weight: 700;
+        src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),
+            url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
+      }
+    </style>
   </head>
 
   <body>
@@ -376,16 +400,14 @@
             </p>
 
             <div class="cta">
-              <!-- Replace # with your social / waitlist / contact link -->
-              <a class="btn btn-primary" href="/auth/google?intent=waitlist">Notify me</a>
-              <a
-                class="btn btn-ghost"
-                href="mailto:founder@modera.studio?subject=Modera%20AI%20—%20Contact&body=Hi%20Modera%20team%2C%0A%0A"
-              >
-                Contact
-              </a>
-              >
-            </div>
+            <button class="btn btn-primary" id="notifyBtn" type="button">Notify me</button>
+            <a
+              class="btn btn-ghost"
+              href="mailto:founder@modera.studio?subject=Modera%20AI%20—%20Contact&body=Hi%20Modera%20team%2C%0A%0A"
+            >
+              Contact
+            </a>
+          </div>
           </aside>
         </div>
 
@@ -402,5 +424,151 @@
     <script>
       document.getElementById("yr").textContent = new Date().getFullYear();
     </script>
+
+    <!-- Notify Modal -->
+  <div class="modal" id="notifyModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Notify me">
+      <button class="modal__close" type="button" aria-label="Close" data-close="true">✕</button>
+
+      <!-- Brevo Form (paste your Brevo form markup here) -->
+      <div class="sib-form" style="text-align:center;">
+        <div id="sib-form-container" class="sib-form-container">
+          <div
+            id="sib-container"
+            class="sib-container--large sib-container--vertical"
+            style="text-align:center; background-color:rgba(184,182,182,1); max-width:540px; border-radius:12px; border-width:1px; border-color:#C0CCD9; border-style:solid;"
+          >
+            <form id="sib-form" method="POST" action="https://7a215313.sibforms.com/serve/MUIFADA_QzYbP-1nW6YaujnC9-l7Q3RaygDEZbrg156aLvQF5LXIH92get5EJ7jUTV0hWQG-0tZs5a_WoYHBxGep3dHUQ8hTgQ1I3bHLuS9KDhFJElaQF5gt4j4FtrqcyxkKueBQnXnAmlMaoRh0nQmAgluPbTjIEwYFJTIv3rvvz3LIg4GEcRI5Rr1PLsEoicd0c49vEaDqKN3sjw==">
+
+              <div style="padding: 8px 0;">
+                <div class="sib-form-block" style="font-size:28px; font-weight:700; font-family:Helvetica, sans-serif; color:#3C4858;">
+                  <p>Modera Notifications</p>
+                </div>
+              </div>
+
+              <div style="padding: 8px 0;">
+                <div class="sib-form-block" style="font-size:15px; font-family:Helvetica, sans-serif; color:#3C4858;">
+                  <div class="sib-text-form-block">
+                    <p>Subscribe to get launch updates.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding: 8px 0;">
+                <div class="sib-input sib-form-block">
+                  <div class="form__entry entry_block">
+                    <div class="form__label-row">
+                      <label class="entry__label" style="font-weight:700; font-size:14px; font-family:Helvetica, sans-serif; color:#3c4858;" for="EMAIL" data-required="*">
+                        Email
+                      </label>
+
+                      <div class="entry__field">
+                        <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="you@domain.com" data-required="true" required />
+                      </div>
+                    </div>
+
+                    <label class="entry__error entry__error--primary" style="font-size:14px; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:6px; border-color:#ff4949;"></label>
+
+                    <label class="entry__specification" style="font-size:12px; font-family:Helvetica, sans-serif; color:#8390A4;">
+                      Unsubscribe anytime.
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding: 8px 0;">
+                <div class="sib-form-block" style="text-align:left">
+                  <button class="sib-form-block__button sib-form-block__button-with-loader"
+                    style="font-size:16px; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#c88a18; border-radius:10px; border-width:0px;"
+                    form="sib-form" type="submit">
+                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                      <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                    </svg>
+                    SUBSCRIBE
+                  </button>
+                </div>
+              </div>
+
+              <input type="text" name="email_address_check" value="" class="input--hidden">
+              <input type="hidden" name="locale" value="en">
+              <input type="hidden" name="html_type" value="simple">
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- End Brevo Form -->
+    </div>
+  </div>
+
+  <style>
+    /* Modal styling that matches your aesthetic */
+    .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+    .modal[aria-hidden="false"] { display: block; }
+
+    .modal__backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .modal__dialog {
+      position: relative;
+      width: min(640px, calc(100% - 32px));
+      margin: 6vh auto;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(0,0,0,0.55));
+      box-shadow: 0 30px 90px rgba(0,0,0,0.7);
+      padding: 18px;
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 36px; height: 36px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+    }
+    .modal__close:hover { background: rgba(255,255,255,0.10); }
+
+    /* Optional: make Brevo container background less “boxy” inside modal */
+    #sib-container { box-shadow: none !important; }
+  </style>
+
+  <script>
+    const notifyBtn = document.getElementById("notifyBtn");
+    const modal = document.getElementById("notifyModal");
+
+    function openModal() {
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      // Focus email input for convenience
+      const email = modal.querySelector('input[type="email"], input[name="EMAIL"]');
+      if (email) setTimeout(() => email.focus(), 50);
+    }
+
+    function closeModal() {
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      notifyBtn?.focus();
+    }
+
+    notifyBtn?.addEventListener("click", openModal);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target?.dataset?.close === "true") closeModal();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+    });
+  </script>
   </body>
 </html>
+
