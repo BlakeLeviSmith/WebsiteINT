@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modera AI</title>
-    <meta name="description" content="Modera AI — our site will be up soon." />
+    <title>Modera AI — AI-Powered Interior Design</title>
+    <meta name="description" content="Modera AI brings professional interior design to everyone. Upload your space, describe your vision, get stunning designs in minutes — not months." />
     <style>
       :root {
         --bg: #070707;
@@ -13,45 +13,24 @@
         --text: rgba(255, 255, 255, 0.92);
         --muted: rgba(255, 255, 255, 0.68);
         --line: rgba(255, 255, 255, 0.12);
-
-        /* Orange accents (luxury, not neon) */
         --accent: #ff7a18;
         --accent2: #ff9a3c;
         --accentGlow: rgba(255, 122, 24, 0.22);
       }
 
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
         color: var(--text);
-        background: radial-gradient(
-            1200px 700px at 20% 15%,
-            rgba(255, 122, 24, 0.18),
-            transparent 55%
-          ),
-          radial-gradient(
-            900px 600px at 85% 30%,
-            rgba(255, 154, 60, 0.12),
-            transparent 55%
-          ),
-          radial-gradient(
-            900px 700px at 60% 90%,
-            rgba(255, 122, 24, 0.09),
-            transparent 60%
-          ),
+        background: radial-gradient(1200px 700px at 20% 15%, rgba(255, 122, 24, 0.18), transparent 55%),
+          radial-gradient(900px 600px at 85% 30%, rgba(255, 154, 60, 0.12), transparent 55%),
+          radial-gradient(900px 700px at 60% 90%, rgba(255, 122, 24, 0.09), transparent 60%),
           linear-gradient(180deg, #050505 0%, #0b0b0b 55%, #050505 100%);
-        overflow: hidden;
+        background-attachment: fixed;
       }
 
-      /* Subtle animated grain + glow */
       .noise {
         pointer-events: none;
         position: fixed;
@@ -62,236 +41,104 @@
         animation: drift 10s linear infinite;
       }
       @keyframes drift {
-        from {
-          transform: translate3d(0, 0, 0);
-        }
-        to {
-          transform: translate3d(-30px, 20px, 0);
-        }
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(-30px, 20px, 0); }
       }
 
-      .wrap {
-        min-height: 100%;
-        display: grid;
-        place-items: center;
-        padding: 28px;
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 28px;
       }
 
-      .card {
-        width: min(980px, 100%);
-        border: 1px solid var(--line);
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.08),
-          rgba(255, 255, 255, 0.03)
-        );
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border-radius: 22px;
-        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.65);
-        overflow: hidden;
+      /* ───────── HEADER ───────── */
+      header {
+        padding: 24px 0;
         position: relative;
+        z-index: 10;
       }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: -2px;
-        background: radial-gradient(
-            600px 220px at 20% 0%,
-            rgba(255, 122, 24, 0.35),
-            transparent 60%
-          ),
-          radial-gradient(
-            520px 220px at 85% 20%,
-            rgba(255, 154, 60, 0.18),
-            transparent 55%
-          );
-        filter: blur(24px);
-        opacity: 0.55;
-        pointer-events: none;
-      }
-
-      .content {
-        position: relative;
-        padding: clamp(28px, 4vw, 54px);
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: clamp(18px, 3vw, 36px);
+      .header-inner {
+        display: flex;
         align-items: center;
+        justify-content: space-between;
       }
-
-      @media (max-width: 860px) {
-        .content {
-          grid-template-columns: 1fr;
-        }
-      }
-
       .brand-row {
         display: flex;
         align-items: center;
-        gap: 14px;
-        margin-bottom: 18px;
+        gap: 12px;
       }
-
       .mark {
-        width: 44px;
-        height: 44px;
-        border-radius: 14px;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.14);
-        background: radial-gradient(
-            18px 18px at 30% 30%,
-            rgba(255, 255, 255, 0.25),
-            transparent 60%
-          ),
+        background: radial-gradient(18px 18px at 30% 30%, rgba(255, 255, 255, 0.25), transparent 60%),
           linear-gradient(135deg, rgba(255, 122, 24, 0.95), #b34100);
-        box-shadow: 0 0 0 6px rgba(255, 122, 24, 0.08),
-          0 18px 40px rgba(0, 0, 0, 0.5);
-        position: relative;
+        box-shadow: 0 0 0 4px rgba(255, 122, 24, 0.08), 0 12px 30px rgba(0, 0, 0, 0.4);
       }
-      .mark::after {
-        content: "";
-        position: absolute;
-        inset: 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 0, 0, 0.25);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.12),
-          rgba(0, 0, 0, 0.32)
-        );
-      }
-
       .brand {
-        font-size: 18px;
-        letter-spacing: 0.12em;
+        font-size: 16px;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.86);
+        font-weight: 600;
       }
-
-      h1 {
-        margin: 0 0 12px 0;
-        font-size: clamp(36px, 4.2vw, 54px);
-        line-height: 1.05;
-        letter-spacing: -0.02em;
+      .nav-links {
+        display: flex;
+        gap: 28px;
       }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.15s;
+      }
+      .nav-links a:hover { color: var(--text); }
 
+      /* ───────── HERO ───────── */
+      .hero {
+        padding: 80px 0 100px;
+        text-align: center;
+      }
+      .hero h1 {
+        margin: 0 0 20px;
+        font-size: clamp(38px, 5vw, 58px);
+        line-height: 1.08;
+        letter-spacing: -0.025em;
+      }
       .accent {
         background: linear-gradient(90deg, var(--accent), var(--accent2));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
       }
-
-      .subtitle {
-        margin: 0 0 22px 0;
+      .hero p {
+        margin: 0 auto 32px;
+        max-width: 580px;
         color: var(--muted);
-        font-size: 16px;
-        line-height: 1.65;
-        max-width: 54ch;
+        font-size: 18px;
+        line-height: 1.7;
       }
-
-      .pill-row {
+      .hero-cta {
         display: flex;
+        gap: 14px;
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 6px;
-      }
-      .pill {
-        padding: 10px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: rgba(0, 0, 0, 0.22);
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 13px;
-        letter-spacing: 0.02em;
-      }
-      .pill strong {
-        color: rgba(255, 255, 255, 0.92);
-        font-weight: 600;
       }
 
-      .side {
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.25),
-          rgba(0, 0, 0, 0.45)
-        );
-        border-radius: 18px;
-        padding: 22px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .side::before {
-        content: "";
-        position: absolute;
-        inset: -40px -60px auto auto;
-        width: 240px;
-        height: 240px;
-        background: radial-gradient(
-          closest-side,
-          rgba(255, 122, 24, 0.22),
-          transparent 70%
-        );
-        filter: blur(10px);
-      }
-
-      .status {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 12px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: rgba(0, 0, 0, 0.25);
-        margin-bottom: 14px;
-        position: relative;
-      }
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 999px;
-        background: var(--accent);
-        box-shadow: 0 0 0 6px rgba(255, 122, 24, 0.12);
-      }
-      .status span {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.78);
-      }
-
-      .big {
-        margin: 0 0 10px 0;
-        font-size: 20px;
-        letter-spacing: -0.01em;
-      }
-
-      .small {
-        margin: 0 0 16px 0;
-        color: rgba(255, 255, 255, 0.7);
-        line-height: 1.6;
-        font-size: 14px;
-      }
-
-      .cta {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-      }
-
+      /* ───────── BUTTONS ───────── */
       .btn {
         appearance: none;
         border: 0;
         cursor: pointer;
-        padding: 12px 14px;
+        padding: 14px 24px;
         border-radius: 14px;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 15px;
         letter-spacing: 0.01em;
-        transition: transform 0.12s ease, box-shadow 0.12s ease,
-          background 0.12s ease;
+        transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+        text-decoration: none;
+        display: inline-block;
       }
       .btn-primary {
         color: #0b0b0b;
@@ -299,8 +146,8 @@
         box-shadow: 0 10px 30px var(--accentGlow);
       }
       .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 40px rgba(255, 122, 24, 0.26);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 40px rgba(255, 122, 24, 0.28);
       }
       .btn-ghost {
         color: rgba(255, 255, 255, 0.88);
@@ -308,279 +155,469 @@
         border: 1px solid rgba(255, 255, 255, 0.14);
       }
       .btn-ghost:hover {
-        transform: translateY(-1px);
-        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.09);
       }
 
-      .footer {
-        display: flex;
-        justify-content: space-between;
-        gap: 14px;
-        flex-wrap: wrap;
-        padding: 18px clamp(28px, 4vw, 54px);
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 12px;
+      /* ───────── PROBLEM / SOLUTION ───────── */
+      .problem-section {
+        padding: 60px 0;
+      }
+      .problem-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 700px) {
+        .problem-grid { grid-template-columns: 1fr; }
+      }
+      .problem-card {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+        border-radius: 18px;
+        padding: 28px;
+      }
+      .problem-card h3 {
+        margin: 0 0 12px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+      .problem-card p {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.6;
+      }
+      .problem-card.highlight {
+        border-color: rgba(255, 122, 24, 0.3);
+        background: linear-gradient(180deg, rgba(255,122,24,0.08), rgba(0,0,0,0.25));
+      }
+      .problem-card.highlight h3 { color: var(--accent); }
+
+      /* ───────── HOW IT WORKS ───────── */
+      .how-section {
+        padding: 80px 0;
+      }
+      .section-label {
+        text-align: center;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+      .section-title {
+        text-align: center;
+        font-size: clamp(28px, 4vw, 38px);
+        margin: 0 0 50px;
+        letter-spacing: -0.02em;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+      @media (max-width: 800px) {
+        .steps { grid-template-columns: 1fr; }
+      }
+      .step {
+        text-align: center;
+        padding: 32px 24px;
+        border: 1px solid var(--line);
+        background: rgba(0,0,0,0.2);
+        border-radius: 18px;
         position: relative;
       }
+      .step-num {
+        width: 44px;
+        height: 44px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), #b34100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #0b0b0b;
+      }
+      .step h4 {
+        margin: 0 0 10px;
+        font-size: 18px;
+      }
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.6;
+      }
 
-      a {
-        color: rgba(255, 255, 255, 0.72);
+      /* ───────── WHY MODERA ───────── */
+      .why-section {
+        padding: 80px 0;
+      }
+      .why-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      @media (max-width: 700px) {
+        .why-grid { grid-template-columns: 1fr; }
+      }
+      .why-item {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(0,0,0,0.15);
+      }
+      .why-item h4 {
+        margin: 0 0 8px;
+        font-size: 17px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .why-item h4 span {
+        font-size: 20px;
+      }
+      .why-item p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      /* ───────── CTA SECTION ───────── */
+      .cta-section {
+        padding: 80px 0 100px;
+        text-align: center;
+      }
+      .cta-card {
+        border: 1px solid rgba(255, 122, 24, 0.25);
+        background: linear-gradient(180deg, rgba(255,122,24,0.06), rgba(0,0,0,0.3));
+        border-radius: 22px;
+        padding: 50px 32px;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-card::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(closest-side, rgba(255,122,24,0.2), transparent);
+        filter: blur(30px);
+      }
+      .cta-card h2 {
+        margin: 0 0 14px;
+        font-size: clamp(26px, 3.5vw, 34px);
+        position: relative;
+      }
+      .cta-card p {
+        margin: 0 0 28px;
+        color: var(--muted);
+        font-size: 16px;
+        position: relative;
+      }
+      .cta-card .btn { position: relative; }
+
+      /* ───────── FOOTER ───────── */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0;
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.5);
+      }
+      footer a {
+        color: rgba(255,255,255,0.6);
         text-decoration: none;
       }
-      a:hover {
-        color: rgba(255, 255, 255, 0.9);
+      footer a:hover { color: rgba(255,255,255,0.85); }
+
+      /* ───────── MODAL ───────── */
+      .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
+      .modal[aria-hidden="false"] { display: block; }
+      .modal__backdrop {
+        position: absolute; inset: 0;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .modal__dialog {
+        position: relative;
+        width: min(500px, calc(100% - 32px));
+        margin: 10vh auto;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: linear-gradient(180deg, rgba(30,30,30,0.95), rgba(15,15,15,0.98));
+        box-shadow: 0 30px 90px rgba(0,0,0,0.7);
+        padding: 32px;
+      }
+      .modal__close {
+        position: absolute;
+        top: 16px; right: 16px;
+        width: 36px; height: 36px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.06);
+        color: rgba(255,255,255,0.85);
+        font-size: 18px;
+        cursor: pointer;
+      }
+      .modal__close:hover { background: rgba(255,255,255,0.1); }
+      .modal h3 {
+        margin: 0 0 8px;
+        font-size: 22px;
+      }
+      .modal p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .modal input[type="email"] {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.15);
+        background: rgba(255,255,255,0.08);
+        color: var(--text);
+        font-size: 15px;
+        margin-bottom: 14px;
+      }
+      .modal input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+      .modal input[type="email"]:focus {
+        outline: none;
+        border-color: var(--accent);
       }
 
-      /* Add this to your existing styles, inside the <style> tag */
+      /* Brevo overrides */
+      #sib-container { background: transparent !important; border: none !important; }
       #sib-form input[type="email"] {
-        color: #3C4858 !important;
-        background-color: white !important;
+        background: rgba(255,255,255,0.08) !important;
+        color: var(--text) !important;
+        border: 1px solid rgba(255,255,255,0.15) !important;
+        border-radius: 12px !important;
       }
-      
-      /* Optional: also style the placeholder for better visibility */
       #sib-form input[type="email"]::placeholder {
-        color: #8390A4 !important;
-        opacity: 0.7;
+        color: rgba(255,255,255,0.4) !important;
+      }
+      .sib-form-block__button {
+        background: linear-gradient(90deg, var(--accent), var(--accent2)) !important;
+        border-radius: 12px !important;
       }
     </style>
-        <!-- Brevo form assets -->
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-    <style>
-      @font-face {
-        font-display: block;
-        font-family: Roboto;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),
-            url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
-      }
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 600;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),
-            url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
-      }
-      @font-face {
-        font-display: fallback;
-        font-family: Roboto;
-        font-weight: 700;
-        src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),
-            url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
-      }
-    </style>
   </head>
 
   <body>
     <div class="noise" aria-hidden="true"></div>
 
-    <main class="wrap">
-      <section class="card">
-        <div class="content">
-          <div>
-            <div class="brand-row">
-              <div class="mark" aria-hidden="true"></div>
-              <div class="brand">Modera AI</div>
-            </div>
-
-            <h1>
-              The next chapter of <span class="accent">intelligent</span> design.
-            </h1>
-
-            <p class="subtitle">
-              Our website is being polished and will be live soon. We’re
-              building a modern, luxury experience — fast, precise, and
-              uncompromising.
-            </p>
-
-            <div class="pill-row" aria-label="Highlights">
-              <div class="pill"><strong>Modern</strong> interface</div>
-              <div class="pill"><strong>Luxury</strong> aesthetic</div>
-              <div class="pill"><strong>AI-first</strong> workflows</div>
-            </div>
-          </div>
-
-          <aside class="side">
-            <div class="status">
-              <div class="dot" aria-hidden="true"></div>
-              <span>Launching soon</span>
-            </div>
-
-            <p class="big">We’ll be up shortly.</p>
-            <p class="small">
-              Thanks for stopping by. If you’d like updates, add an email button
-              later (or link to your social).
-            </p>
-
-            <div class="cta">
-            <button class="btn btn-primary" id="notifyBtn" type="button">Notify me</button>
-            <a
-              class="btn btn-ghost"
-              href="mailto:founder@modera.studio?subject=Modera%20AI%20—%20Contact&body=Hi%20Modera%20team%2C%0A%0A"
-            >
-              Contact
-            </a>
-          </div>
-          </aside>
+    <!-- HEADER -->
+    <header>
+      <div class="container header-inner">
+        <div class="brand-row">
+          <div class="mark" aria-hidden="true"></div>
+          <div class="brand">Modera AI</div>
         </div>
+        <nav class="nav-links">
+          <a href="#how">How It Works</a>
+          <a href="#why">Why Modera</a>
+          <a href="mailto:founder@modera.studio">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-        <div class="footer">
-          <div>© <span id="yr"></span> Modera AI. All rights reserved.</div>
-          <div>
-            <a href="#" onclick="return false;">Privacy</a> ·
-            <a href="#" onclick="return false;">Terms</a>
-          </div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1>Professional interior design,<br><span class="accent">powered by AI.</span></h1>
+        <p>
+          Modera brings luxury interior design to everyone. Upload a photo of your space, describe your style, and receive stunning, personalized designs in minutes — not months, and at a fraction of the cost.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" id="notifyBtn" type="button">Get Early Access</button>
+          <a class="btn btn-ghost" href="#how">See How It Works</a>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <script>
-      document.getElementById("yr").textContent = new Date().getFullYear();
-    </script>
-
-    <!-- Notify Modal -->
-  <div class="modal" id="notifyModal" aria-hidden="true">
-    <div class="modal__backdrop" data-close="true"></div>
-
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Notify me">
-      <button class="modal__close" type="button" aria-label="Close" data-close="true">✕</button>
-
-      <!-- Brevo Form (paste your Brevo form markup here) -->
-      <div class="sib-form" style="text-align:center;">
-        <div id="sib-form-container" class="sib-form-container">
-          <div
-            id="sib-container"
-            class="sib-container--large sib-container--vertical"
-            style="text-align:center; background-color:rgba(184,182,182,1); max-width:540px; border-radius:12px; border-width:1px; border-color:#C0CCD9; border-style:solid;"
-          >
-            <form id="sib-form" method="POST" action="https://7a215313.sibforms.com/serve/MUIFADA_QzYbP-1nW6YaujnC9-l7Q3RaygDEZbrg156aLvQF5LXIH92get5EJ7jUTV0hWQG-0tZs5a_WoYHBxGep3dHUQ8hTgQ1I3bHLuS9KDhFJElaQF5gt4j4FtrqcyxkKueBQnXnAmlMaoRh0nQmAgluPbTjIEwYFJTIv3rvvz3LIg4GEcRI5Rr1PLsEoicd0c49vEaDqKN3sjw==">
-
-              <div style="padding: 8px 0;">
-                <div class="sib-form-block" style="font-size:28px; font-weight:700; font-family:Helvetica, sans-serif; color:#3C4858;">
-                  <p>Modera Notifications</p>
-                </div>
-              </div>
-
-              <div style="padding: 8px 0;">
-                <div class="sib-form-block" style="font-size:15px; font-family:Helvetica, sans-serif; color:#3C4858;">
-                  <div class="sib-text-form-block">
-                    <p>Subscribe to get launch updates.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div style="padding: 8px 0;">
-                <div class="sib-input sib-form-block">
-                  <div class="form__entry entry_block">
-                    <div class="form__label-row">
-                      <label class="entry__label" style="font-weight:700; font-size:14px; font-family:Helvetica, sans-serif; color:#3c4858;" for="EMAIL" data-required="*">
-                        Email
-                      </label>
-
-                      <div class="entry__field">
-                        <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="you@domain.com" data-required="true" required />
-                      </div>
-                    </div>
-
-                    <label class="entry__error entry__error--primary" style="font-size:14px; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:6px; border-color:#ff4949;"></label>
-
-                    <label class="entry__specification" style="font-size:12px; font-family:Helvetica, sans-serif; color:#8390A4;">
-                      Unsubscribe anytime.
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div style="padding: 8px 0;">
-                <div class="sib-form-block" style="text-align:left">
-                  <button class="sib-form-block__button sib-form-block__button-with-loader"
-                    style="font-size:16px; font-weight:700; font-family:Helvetica, sans-serif; color:#FFFFFF; background-color:#c88a18; border-radius:10px; border-width:0px;"
-                    form="sib-form" type="submit">
-                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
-                      <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-                    </svg>
-                    SUBSCRIBE
-                  </button>
-                </div>
-              </div>
-
-              <input type="text" name="email_address_check" value="" class="input--hidden">
-              <input type="hidden" name="locale" value="en">
-              <input type="hidden" name="html_type" value="simple">
-            </form>
+    <!-- PROBLEM / SOLUTION -->
+    <section class="problem-section">
+      <div class="container">
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h3>The Problem</h3>
+            <p>Traditional interior design costs $2,000–$15,000+ and takes weeks of back-and-forth. Most people can't afford it, so they settle for spaces that don't inspire them.</p>
+          </div>
+          <div class="problem-card highlight">
+            <h3>Our Solution</h3>
+            <p>Modera uses generative AI to deliver designer-quality room concepts instantly. You get multiple options to explore, styled to your taste, for a fraction of the price.</p>
           </div>
         </div>
       </div>
-      <!-- End Brevo Form -->
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how">
+      <div class="container">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">From photo to dream space in 3 steps</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h4>Upload Your Space</h4>
+            <p>Snap a photo of any room — living room, bedroom, office, or kitchen. Our AI analyzes the layout and lighting.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h4>Describe Your Vision</h4>
+            <p>Tell us your style: modern minimalist, cozy Scandinavian, bold maximalist — or let AI suggest options based on trends.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h4>Get Your Designs</h4>
+            <p>Receive multiple photorealistic renders of your redesigned space in minutes. Save, compare, and share with ease.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY MODERA -->
+    <section class="why-section" id="why">
+      <div class="container">
+        <div class="section-label">Why Modera</div>
+        <h2 class="section-title">Design without the barriers</h2>
+        <div class="why-grid">
+          <div class="why-item">
+            <h4><span>⚡</span> Instant Results</h4>
+            <p>Get multiple design concepts in minutes, not weeks. Iterate as fast as your ideas flow.</p>
+          </div>
+          <div class="why-item">
+            <h4><span>💰</span> 90% Cost Reduction</h4>
+            <p>Professional design quality at a fraction of traditional fees. Luxury aesthetics, accessible pricing.</p>
+          </div>
+          <div class="why-item">
+            <h4><span>🎨</span> Unlimited Exploration</h4>
+            <p>Try bold ideas risk-free. Experiment with styles you'd never commit to without seeing them first.</p>
+          </div>
+          <div class="why-item">
+            <h4><span>🛋️</span> Shoppable Designs</h4>
+            <p>Coming soon: AI-matched furniture and decor recommendations you can buy directly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card">
+          <h2>Be first in line.</h2>
+          <p>We're launching soon. Join the waitlist for early access and founding member pricing.</p>
+          <button class="btn btn-primary" id="notifyBtn2" type="button">Get Early Access</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-inner">
+        <div>© <span id="yr"></span> Modera AI. All rights reserved.</div>
+        <div>
+          <a href="mailto:founder@modera.studio">founder@modera.studio</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal" id="notifyModal" aria-hidden="true">
+      <div class="modal__backdrop" data-close="true"></div>
+      <div class="modal__dialog" role="dialog" aria-modal="true" aria-label="Get early access">
+        <button class="modal__close" type="button" aria-label="Close" data-close="true">✕</button>
+
+        <div class="sib-form" style="text-align:center;">
+          <div id="sib-form-container" class="sib-form-container">
+            <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; max-width:100%; padding: 0;">
+              <form id="sib-form" method="POST" action="https://7a215313.sibforms.com/serve/MUIFADA_QzYbP-1nW6YaujnC9-l7Q3RaygDEZbrg156aLvQF5LXIH92get5EJ7jUTV0hWQG-0tZs5a_WoYHBxGep3dHUQ8hTgQ1I3bHLuS9KDhFJElaQF5gt4j4FtrqcyxkKueBQnXnAmlMaoRh0nQmAgluPbTjIEwYFJTIv3rvvz3LIg4GEcRI5Rr1PLsEoicd0c49vEaDqKN3sjw==">
+                <div style="padding: 8px 0;">
+                  <div class="sib-form-block" style="font-size:24px; font-weight:700; color:#fff;">
+                    <p>Join the Waitlist</p>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="sib-form-block" style="font-size:14px; color:rgba(255,255,255,0.7);">
+                    <p>Get early access and founding member pricing.</p>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="sib-input sib-form-block">
+                    <div class="form__entry entry_block">
+                      <div class="form__label-row">
+                        <div class="entry__field">
+                          <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" placeholder="you@email.com" data-required="true" required style="width:100%; padding:14px 16px; font-size:15px;" />
+                        </div>
+                      </div>
+                      <label class="entry__error entry__error--primary" style="font-size:13px; color:#ff6b6b;"></label>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 8px 0;">
+                  <div class="sib-form-block">
+                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px; font-weight:600; color:#0b0b0b; background:linear-gradient(90deg,#ff7a18,#ff9a3c); border-radius:12px; padding:14px 28px; border:none; width:100%; cursor:pointer;" form="sib-form" type="submit">
+                      <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style="width:18px; height:18px;">
+                        <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                      </svg>
+                      Get Early Access
+                    </button>
+                  </div>
+                </div>
+                <input type="text" name="email_address_check" value="" class="input--hidden" style="display:none;">
+                <input type="hidden" name="locale" value="en">
+                <input type="hidden" name="html_type" value="simple">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <style>
-    /* Modal styling that matches your aesthetic */
-    .modal { position: fixed; inset: 0; display: none; z-index: 1000; }
-    .modal[aria-hidden="false"] { display: block; }
+    <script>
+      document.getElementById("yr").textContent = new Date().getFullYear();
 
-    .modal__backdrop {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
+      const modal = document.getElementById("notifyModal");
+      const openBtns = [document.getElementById("notifyBtn"), document.getElementById("notifyBtn2")];
 
-    .modal__dialog {
-      position: relative;
-      width: min(640px, calc(100% - 32px));
-      margin: 6vh auto;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(0,0,0,0.55));
-      box-shadow: 0 30px 90px rgba(0,0,0,0.7);
-      padding: 18px;
-    }
+      function openModal() {
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        const email = modal.querySelector('input[type="email"]');
+        if (email) setTimeout(() => email.focus(), 50);
+      }
 
-    .modal__close {
-      position: absolute;
-      top: 12px; right: 12px;
-      width: 36px; height: 36px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.85);
-      cursor: pointer;
-    }
-    .modal__close:hover { background: rgba(255,255,255,0.10); }
+      function closeModal() {
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
 
-    /* Optional: make Brevo container background less “boxy” inside modal */
-    #sib-container { box-shadow: none !important; }
-  </style>
+      openBtns.forEach(btn => btn?.addEventListener("click", openModal));
 
-  <script>
-    const notifyBtn = document.getElementById("notifyBtn");
-    const modal = document.getElementById("notifyModal");
+      modal.addEventListener("click", (e) => {
+        if (e.target?.dataset?.close === "true") closeModal();
+      });
 
-    function openModal() {
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      // Focus email input for convenience
-      const email = modal.querySelector('input[type="email"], input[name="EMAIL"]');
-      if (email) setTimeout(() => email.focus(), 50);
-    }
-
-    function closeModal() {
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      notifyBtn?.focus();
-    }
-
-    notifyBtn?.addEventListener("click", openModal);
-
-    modal.addEventListener("click", (e) => {
-      if (e.target?.dataset?.close === "true") closeModal();
-    });
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
-    });
-  </script>
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+      });
+    </script>
   </body>
 </html>
-
