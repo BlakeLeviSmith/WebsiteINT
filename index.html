@@ -400,34 +400,29 @@
         border-color: var(--accent);
       }
 
-      /* Brevo overrides */
+      /* Brevo overrides - light input for visibility */
       #sib-container { background: transparent !important; border: none !important; }
       #sib-form input[type="email"],
       #sib-form input[type="email"]:focus,
-      #sib-form .input {
-        background: rgba(255,255,255,0.12) !important;
-        color: #ffffff !important;
-        border: 1px solid rgba(255,255,255,0.25) !important;
+      #sib-form .input,
+      .modal input[type="email"],
+      .modal__dialog input {
+        background: #ffffff !important;
+        color: #1a1a1a !important;
+        border: 1px solid rgba(255,255,255,0.3) !important;
         border-radius: 12px !important;
-        -webkit-text-fill-color: #ffffff !important;
-        caret-color: #ffffff !important;
+        -webkit-text-fill-color: #1a1a1a !important;
+        caret-color: #1a1a1a !important;
       }
       #sib-form input[type="email"]::placeholder,
-      #sib-form .input::placeholder {
-        color: rgba(255,255,255,0.5) !important;
-        -webkit-text-fill-color: rgba(255,255,255,0.5) !important;
+      #sib-form .input::placeholder,
+      .modal input::placeholder {
+        color: #888888 !important;
+        -webkit-text-fill-color: #888888 !important;
       }
       .sib-form-block__button {
         background: linear-gradient(90deg, var(--accent), var(--accent2)) !important;
         border-radius: 12px !important;
-      }
-      /* Force text visibility on autofill */
-      #sib-form input:-webkit-autofill,
-      #sib-form input:-webkit-autofill:hover,
-      #sib-form input:-webkit-autofill:focus {
-        -webkit-text-fill-color: #ffffff !important;
-        -webkit-box-shadow: 0 0 0px 1000px rgba(40,40,40,1) inset !important;
-        transition: background-color 5000s ease-in-out 0s;
       }
     </style>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
